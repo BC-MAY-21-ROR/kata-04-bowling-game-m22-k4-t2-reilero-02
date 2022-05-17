@@ -2,12 +2,11 @@ require_relative "frame"
 
 class Board 
     def initialize
-        @board = Frame.new.set_frame
+        @board = Array.new(10)
     end
 
     def fill_board
-        isSet = true
-        @board.fill(isSet) 
+        @board.fill(Frame.new.set_frame) 
     end
 
 end

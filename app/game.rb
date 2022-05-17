@@ -3,12 +3,25 @@ require_relative "frame"
 
 class Game
     def initialize
-        @shoot
+        @shot
     end
 
-    def shot
-        
+    def shot(frame)
+        @knock_out_pins = rand(0..frame.remaining_pins)
+        if @knock_out_pins == 10
+            final_score
+        else
+            shot
+        end
     end
 
+    def past_shot(frame)
+        @index = board.find_index(frame)
+        @board[index - 1]
+    end
+
+    def final_score
+        @score = 0
+    end
 
 end
