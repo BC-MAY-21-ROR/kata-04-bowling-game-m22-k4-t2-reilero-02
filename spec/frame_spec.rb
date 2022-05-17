@@ -2,7 +2,6 @@ require 'rspec'
 require_relative '../app/frame'
 
 describe Frame do
-    
     describe "set_frame" do
       it "should set the 10 pins in the frame" do
         expect(Frame.new.set_frame.length).to eq(10)
