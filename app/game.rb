@@ -24,6 +24,22 @@ class Game
         puts @frame_score
     end
 
+
+    def play(board)
+        board.each do |x|
+            i = 0
+            play_frame(board[i])
+            i++
+        end
+    end
+
+    # board.each do |x|
+    #     i = 0  
+    #     play_frame(board[i])
+    #     i++
+    #     end
+
+
     def past_shot(frame)
         @index = board.find_index(frame)
         @board[index - 1]
@@ -31,8 +47,9 @@ class Game
 
 end
 
+
 board1 = Board.new
 board1.fill_board
 game1 = Game.new
 frame = board1.board[0]
-game1.play_frame(frame)
+Game.new.play(board1.board)
