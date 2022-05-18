@@ -2,15 +2,15 @@ require 'rspec'
 require_relative '../app/frame'
 
 describe Frame do
-    describe "set_frame" do
-      it "should set the 10 pins in the frame" do
-        expect(Frame.new.set_frame.length).to eq(10)
-    end
-    describe "sorted_frame" do
-      sorted_frame = Frame.new.sorted_frame(6)
-      it "should create a new array after the game method" do
-        expect(sorted_frame.length).to eq(6)
+    describe "pins_dropped" do
+      it "should substract from remaining_pins" do
+        frame = Frame.new
+        frame.pins_dropped(8)
+        expect(frame.remaining_pins).to eql(2)
       end
-    end
+      it "should return the amount of pins substracted" do
+        expect(Frame.new.pins_dropped(8)).to eql(8)
+      end
+
     end
 end

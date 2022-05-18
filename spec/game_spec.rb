@@ -3,7 +3,7 @@ require_relative "../app/game"
 
 describe Game do
 
-    describe "#shot" do
+    describe "#play_frame" do
         it "shot should change random true values" do
             shoot = Game.new.shot
             expect(Game.new.)
