@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative 'frame'
 
 class Board
@@ -8,6 +10,20 @@ class Board
   end
 
   def fill_board
-    @board.fill(Frame.new)
+    i = 0
+    @board.each do |_x|
+      @board[i] = Frame.new
+      i = 1 + i
+    end
+  end
+
+  def next_frame(frame)
+    index = board.find_index(frame)
+    board[index + 1]
+  end
+
+  def previous_frame(frame)
+    index = board.find_index(frame)
+    board[index - 1]
   end
 end

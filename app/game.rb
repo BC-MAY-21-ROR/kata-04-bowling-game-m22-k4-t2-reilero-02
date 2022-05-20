@@ -1,49 +1,42 @@
-require_relative "./board"
-require_relative "./frame"
+require_relative './board'
+require_relative './frame'
 
 class Game
-    def initialize
-        @shot
-        @score
+  
+  def initialize
+    @shot
+    @score = 0
+  end
+  def create_random_shots
+    first_roll = rand(0..10)
+    puts first_roll
+    second_roll = rand(0..10-first_roll)
+    puts second_roll
+    shots = [first_roll, second_roll]
+  end
+  def play(board)
+    array = board.board
+    i = 0
+    array.each do |x|
+      shots = create_random_shots
+      @score += x.play_frame(shots[0],shots[1])
+      i = i + 1
     end
-
-    def play_frame(frame)
-        @frame_score = 0
-        @frame_score += frame.pins_dropped(rand(0..frame.remaining_pins))
-        puts  @frame_score
-        if frame.remaining_pins==0
-            puts "strike"
-            return @frame_score 
-        end
-        @frame_score += frame.pins_dropped(rand(0..frame.remaining_pins))
-        puts  @frame_score
-        if frame.remaining_pins==0
-            puts "spare"
-        end
-        @frame_score
-        puts @frame_score
+    @score
+  end
+  def calculate_final_score(board)
+    final_score = 0
+    final_board = board.board
+    final_board.each do |x|
+      if x.next_frame.spare?
+        x.score += x.next_frame.first_roll
+        final_score += x.score
+      elsif x.next_frame.strike?
+        x.score += x.next_frame.frame_score
+        final_score += x.score
+      end
     end
-
-
-    def play(board)
-        board.each do |x|
-            i = 0
-            play_frame(board[i])
-            i++
-        end
-    end
-
-    # board.each do |x|
-    #     i = 0  
-    #     play_frame(board[i])
-    #     i++
-    #     end
-
-
-    def past_shot(frame)
-        @index = board.find_index(frame)
-        @board[index - 1]
-    end
+  end
 
 end
 
@@ -52,4 +45,7 @@ board1 = Board.new
 board1.fill_board
 game1 = Game.new
 frame = board1.board[0]
-Game.new.play(board1.board)
+
+puts game1.play(board1)
+puts game1.calculate_final_score(board1)
+
